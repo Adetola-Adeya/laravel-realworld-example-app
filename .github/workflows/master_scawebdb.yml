@@ -29,7 +29,7 @@ jobs:
 
       - name: Run composer install if composer.json exists
         if: steps.check_files.outputs.files_exists == 'true'
-        run: php -r "readfile('https://getcomposer.org/installer');" | php && composer.phar install
+        run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'scawebdb'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9F0CDF261CA246489D2F1551DF19E869 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_94CCC6EC07914FD08DD0816F65CB29FE }}
           package: .
